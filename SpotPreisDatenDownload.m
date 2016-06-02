@@ -3,7 +3,7 @@
 relDataPath = '../bachelorThesis/';
 
 %% Initialize variables.
-filename = '/Users/leoniegoldmann/Desktop/Matlab/SpotPricesRohstoffe.csv';
+filename = '../FutureDaten/SpotPricesRohstoffe.csv';
 delimiter = {'\t',' ',';'};
 
 %% Read columns of data as strings:

@@ -179,16 +179,17 @@ pricesAndMaturities = outerjoin(longPrices, longMaturities, 'Keys', {'Date', 'Fu
     'MergeKeys', true, 'Type', 'left');
 
 %% 
+
+SpotPreisDatenDownload
+
+%% 
 % Change Variable Name  
 
 SpotPricesRohstoffe.Properties.VariableNames{'Code'} = 'Date';
 
 
 % Delete cocoa, gold etc. 
-SpotPricesRohstoffe.Gold = []
-SpotPricesRohstoffe.Cocoa = []
-SpotPricesRohstoffe.Corn = []
-SpotPricesRohstoffe.Oil = []
+SpotPricesRohstoffe = SpotPricesRohstoffe(:, {'Date', 'Cotton'});
 
 % sort SpotPrices
 SpotPricesRohstoffe = sortrows(SpotPricesRohstoffe, 'Date');
@@ -203,9 +204,17 @@ pricesAndMaturitiesAndspotprices = outerjoin(pricesAndMaturities,SpotPricesRohst
 
 pricesAndMaturitiesAndspotprices.PriceDifference = pricesAndMaturitiesAndspotprices.FuturePrices - pricesAndMaturitiesAndspotprices.Cotton;
 
+%%
 % TestGrafik time to maturity & Price Difference
-plot(pricesAndMaturitiesAndspotprices.TimeToMaturity,pricesAndMaturitiesAndspotprices.PriceDifference)
+figure(2);
+plot(pricesAndMaturitiesAndspotprices.TimeToMaturity,pricesAndMaturitiesAndspotprices.PriceDifference, '.')
 
+
+%%
+
+% get low maturity obs
+xxLowMat = pricesAndMaturitiesAndspotprices(pricesAndMaturitiesAndspotprices.TimeToMaturity < 5, :);
+xxLowMat.Time = datestr(xxLowMat.Date);
 
 %% 
 
